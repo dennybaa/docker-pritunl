@@ -24,10 +24,7 @@ dependencies:
 
 test:
   override:
-    - |
-        docker build -t ${CONTAINER}:$(echo ${VERSION} | cut -d. -f 1-2) \
-                   -t ${CONTAINER}:latest .
-
+    - docker build -t ${CONTAINER} .
 
 deployment:
   hub:
@@ -35,5 +32,8 @@ deployment:
     branch: master
     commands:
       - docker login -e dennybaa@gmail.com -u dennybaa -p $DOCKER_PASS
-      - docker push ${CONTAINER}
-      - docker push ${CONTAINER}:$(echo ${VERSION} | cut -d. -f 1-2)
+      - |
+          version=$(echo ${VERSION} | cut -d. -f 1-2)
+          docker tag ${CONTAINER} ${CONTAINER}:${version}
+          docker images
+          docker push ${CONTAINER}
