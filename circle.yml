@@ -1,0 +1,12 @@
+machine:
+  environment:
+    VERSION: "1.21.967.90"
+    URL: "https://github.com/pritunl/pritunl/archive/${VERSION}.tar.gz"
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - go get github.com/pritunl/pritunl-dns
+    - go get github.com/pritunl/pritunl-monitor
+    - go get github.com/pritunl/pritunl-web
