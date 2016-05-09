@@ -27,3 +27,12 @@ test:
     - |
         docker build -t ${CONTAINER}:$(echo ${VERSION} | cut -d. -f 1-2) \
                    -t ${CONTAINER}:latest .
+
+
+deployment:
+  hub:
+    owner: dennybaa
+    branch: master
+    commands:
+      - docker login -e dennybaa@gmail.com -u dennybaa -p $DOCKER_PASS
+      - docker push ${CONTAINER}
