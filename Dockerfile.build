@@ -6,4 +6,7 @@ RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python
 
 RUN apk add alpine-sdk libffi libffi-dev openssl-dev linux-headers python-dev
 
+ADD build.sh /
 VOLUME /wheels
+
+CMD ["/bin/sh", "/build.sh"]
