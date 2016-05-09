@@ -6,8 +6,16 @@ RUN apk update && apk add libffi openssl ca-certificates \
 
 RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python
 
+# Add my_init
+ADD https://github.com/phusion/baseimage-docker/raw/master/image/bin/my_init /sbin/my_init
+ADD entrypoint.sh /
+ADD my_init.d /etc/my_init.d
+
 # Add compiled wheels for alpine
 ADD wheels /wheels
+
+# Add go services
+ADD pritunl-* /usr/local/bin/
 
 RUN pip install --no-index -f /wheels -r /wheels/requirements.txt && \
       pip install --no-index -f /wheels pritunl
@@ -15,3 +23,5 @@ RUN pip install --no-index -f /wheels -r /wheels/requirements.txt && \
 EXPOSE 9700
 EXPOSE 1194
 EXPOSE 11194
+
+CMD [ "/entrypoint.sh" ]
