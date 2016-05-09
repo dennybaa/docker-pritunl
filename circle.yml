@@ -36,3 +36,4 @@ deployment:
     commands:
       - docker login -e dennybaa@gmail.com -u dennybaa -p $DOCKER_PASS
       - docker push ${CONTAINER}
+      - docker push ${CONTAINER}:$(echo ${VERSION} | cut -d. -f 1-2)
