@@ -1,0 +1,9 @@
+FROM gliderlabs/alpine
+MAINTAINER Denis Baryshev <dennybaa@gmail.com>
+
+RUN apk update && apk add openssl ca-certificates python net-tools openvpn bridge-utils
+RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python
+
+RUN apk add alpine-sdk libffi libffi-dev openssl-dev linux-headers python-dev
+
+VOLUME /wheels

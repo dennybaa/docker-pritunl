@@ -6,7 +6,19 @@ machine:
     - docker
 
 dependencies:
-  pre:
+  override:
     - go get github.com/pritunl/pritunl-dns
     - go get github.com/pritunl/pritunl-monitor
     - go get github.com/pritunl/pritunl-web
+
+  pre:
+    - wget $URL
+    - tar xzf ${VERSION}.tar.gz
+    - docker build -t build -f Dockerfile.build ./
+    - | 
+        docker run -it -v $(pwd)/pritunl-${VERSION}:/pritunl \
+                       -v $(pwd)/wheels:/wheels \
+                       -w /pritunl \
+          build sh -c " \
+            pip wheel --wheel-dir=/wheels -r requirements.txt && \
+            pip wheel --wheel-dir=/wheels ./ && ls -l /wheels"
