@@ -2,6 +2,7 @@ machine:
   environment:
     VERSION: "1.21.967.90"
     URL: "https://github.com/pritunl/pritunl/archive/${VERSION}.tar.gz"
+    CONTAINER: dennybaa/pritunl
   services:
     - docker
 
@@ -19,3 +20,9 @@ dependencies:
         docker run -it -v $(pwd)/pritunl-${VERSION}:/pritunl \
                        -v $(pwd)/wheels:/wheels \
                        -w /pritunl build-container
+
+test:
+  override:
+    - |
+        docker build -t ${CONTAINER}:$(echo ${VERSION} | cut -d. -f 1-2) \
+                   -t ${CONTAINER}:latest .
