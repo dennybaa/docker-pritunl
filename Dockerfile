@@ -21,8 +21,6 @@ ADD pritunl.conf /etc/pritunl.conf
 RUN pip install --no-index -f /wheels -r /wheels/requirements.txt && \
       pip install --no-index -f /wheels pritunl
 
-EXPOSE 9700
-EXPOSE 1194
-EXPOSE 11194
+EXPOSE 443 1194 
 
 CMD [ "/entrypoint.sh" ]
