@@ -14,9 +14,10 @@ ADD my_init.d /etc/my_init.d
 # Add compiled wheels for alpine
 ADD wheels /wheels
 
-# Add go services and config
+# Add go services, config and site directory
 ADD pritunl-* /usr/local/bin/
-ADD pritunl.conf /etc/pritunl.conf
+ADD pritunl/data/etc/pritunl.conf /etc/pritunl.conf
+ADD pritunl/www /usr/share/pritunl/www
 
 RUN pip install --no-index -f /wheels -r /wheels/requirements.txt && \
       pip install --no-index -f /wheels pritunl

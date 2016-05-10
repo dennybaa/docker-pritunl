@@ -15,10 +15,10 @@ dependencies:
 
   pre:
     - wget $URL
-    - tar xzf ${VERSION}.tar.gz
+    - tar xzf ${VERSION}.tar.gz && mv pritunl-${VERSION} pritunl
     - docker build -t build-container -f Dockerfile.build ./
     - | 
-        docker run -it -v $(pwd)/pritunl-${VERSION}:/pritunl \
+        docker run -it -v $(pwd)/pritunl:/pritunl \
                        -v $(pwd)/wheels:/wheels \
                        -w /pritunl build-container
 
