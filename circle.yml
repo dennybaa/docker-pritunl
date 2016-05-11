@@ -24,6 +24,7 @@ dependencies:
 
 test:
   override:
+    - docker build -t ${CONTAINER}:alpine -f Dockerfile.alpine .
     - docker build -t ${CONTAINER} .
 
 deployment:
