@@ -8,7 +8,7 @@ RUN echo "deb http://repo.pritunl.com/stable/apt jessie main" > /etc/apt/sources
       apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv CF8E292A && apt-get update
 
 RUN version=$(apt-cache show pritunl | grep Version: | sed 's/Version: //' | grep $VERSION) && \
-        apt-get install -y pritunl=$version ca-certificates
+        apt-get install -y pritunl=$version iptables ca-certificates
 
 # Add my_init
 ADD https://github.com/phusion/baseimage-docker/raw/master/image/bin/my_init /sbin/my_init
