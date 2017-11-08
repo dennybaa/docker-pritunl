@@ -9,9 +9,8 @@ machine:
 dependencies:
   override:
     - go get github.com/pritunl/pritunl-dns
-    - go get github.com/pritunl/pritunl-monitor
     - go get github.com/pritunl/pritunl-web
-    - cp /home/ubuntu/.go_workspace/bin/pritunl-{dns,monitor,web} ./
+    - cp /home/ubuntu/.go_workspace/bin/pritunl-{dns,web} ./
 
   pre:
     - wget $URL
