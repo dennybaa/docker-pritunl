@@ -1,17 +1,9 @@
-FROM gliderlabs/alpine
+FROM stackfeed/alpine-python3
 MAINTAINER Denis Baryshev <dennybaa@gmail.com>
 
-RUN apk update && apk add libffi openssl ca-certificates \
-        python net-tools openvpn bridge-utils
+RUN apk --no-cache --update add libffi openssl ca-certificates net-tools openvpn bridge-utils
 
-RUN wget -qO- https://bootstrap.pypa.io/get-pip.py | python
-
-# Add my_init
-ADD https://github.com/phusion/baseimage-docker/raw/master/image/bin/my_init /sbin/my_init
-ADD entrypoint.sh /
-ADD my_init.d /etc/my_init.d
-
-# Add compiled wheels for alpine
+# Add python wheels generated during CI build
 ADD wheels /wheels
 
 # Add go services, config and site directory
@@ -20,8 +12,9 @@ ADD pritunl/data/etc/pritunl.conf /etc/pritunl.conf
 ADD pritunl/www /usr/share/pritunl/www
 
 RUN pip install --no-index -f /wheels -r /wheels/requirements.txt && \
-      pip install --no-index -f /wheels pritunl
+      pip install --no-index -f /wheels pritunl && rm -rf /wheels
 
 EXPOSE 443 1194 
 
-CMD [ "/entrypoint.sh" ]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["pritunl", "start"]
