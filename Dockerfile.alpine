@@ -1,5 +1,12 @@
-FROM stackfeed/alpine-python3
+FROM stackfeed/alpine
 MAINTAINER Denis Baryshev <dennybaa@gmail.com>
+
+# Get python and pip
+RUN apk add --no-cache python && \
+    python -m ensurepip --upgrade && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip install setuptools && \
+    rm -r /root/.cache
 
 RUN apk --no-cache --update add libffi openssl ca-certificates net-tools openvpn bridge-utils
 
