@@ -13,6 +13,7 @@ jobs:
 
     steps:
       - checkout
+      - setup_remote_docker
       - run: docker ps -a
       - run: docker run alpine echo hello
       - run: docker ps -a
