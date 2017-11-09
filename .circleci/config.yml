@@ -18,8 +18,8 @@ jobs:
       - run: docker run alpine mount
       - run: docker ps -a
       - run: docker images
-      - run: cat /proc/uptime
-      - run: docker run -t alpine cat /proc/uptime
+      - run: cat /proc/version
+      - run: docker run -t alpine cat /proc/version
 
       # docker build --tag generate-wheels -f Dockerfile.build ./ 
       # - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
