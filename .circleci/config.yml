@@ -8,26 +8,31 @@ jobs:
 
     environment:
       VERSION: "1.28.1515.73"
-      URL: "https://github.com/pritunl/pritunl/archive/1.28.1515.73.tar.gz"
-      CONTAINER: dennybaa/pritunl
+      SOURCE_URL: "https://github.com/pritunl/pritunl/archive/1.28.1515.73.tar.gz"
 
     steps:
       - checkout
       - setup_remote_docker
-      - run: docker ps -a
-      - run: docker run alpine mount
-      - run: docker ps -a
-      - run: docker images
-      - run: cat /proc/version
-      - run: docker run -t alpine cat /proc/version
+      - run: docker build --tag build-wheels -f Dockerfile.build ./
 
-      # docker build --tag generate-wheels -f Dockerfile.build ./ 
-      # - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
+      - run:
+          name: Fetch pritunl source
+          command: |
+            wget $SOURCE_URL
+            tar xzf ${VERSION}.tar.gz && mv pritunl-${VERSION} pritunl
+
+      - run:
+          name: Build pritunl wheels and copy back to the primary machine
+          command: |
+            docker create --name data -v /wheels -v pritunl alpine:3.6 /bin/true
+            docker cp pritunl data:/
+            docker run -t --volumes-from data -w pritunl build-wheels
+            docker cp data:/wheels ./
+
       # - run:
-      #     name: A
+      #     name: Build resulting container
       #     command: |
-      #       docker create -v /data --name vol alpine:3.6 /bin/true
-      #       docker cp 
+      #       docker run -t
       # - run: docker build -t build-container -f Dockerfile.build ./
 
       # - run: |
