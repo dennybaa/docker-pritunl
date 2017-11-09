@@ -17,6 +17,7 @@ jobs:
       - run: docker ps -a
       - run: docker run alpine echo hello
       - run: docker ps -a
+      - run: docker info
       # - run: docker build -t build-container -f Dockerfile.build ./
 
       # - run: |
