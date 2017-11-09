@@ -12,7 +12,9 @@ jobs:
       CONTAINER: dennybaa/pritunl
 
     steps:
+      - run: pwd
       - checkout
+      - run: pwd
       - run: wget $URL
       - run: tar xzf ${VERSION}.tar.gz && mv pritunl-${VERSION} pritunl
       - run: pwd && ls -la ./
