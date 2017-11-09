@@ -18,8 +18,17 @@ jobs:
       - run: docker run alpine mount
       - run: docker ps -a
       - run: docker images
-      - run: docker build --tag generate-wheels -f Dockerfile.build ./
-      - run: docker images
+      - run: |
+          docker build --tag generate-wheels -f Dockerfile.build ./ &
+          sleep 2
+          ps -auxw
+          wait $!
+
+      - run: |
+          docker images &
+          sleep 0.1
+          ps -auxw
+
       # - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
       # - run:
       #     name: A
