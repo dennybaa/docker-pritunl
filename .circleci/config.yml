@@ -17,7 +17,9 @@ jobs:
       - run: docker ps -a
       - run: docker run alpine echo hello
       - run: docker ps -a
+      - run: docker images
       - run: docker build --tag generate-wheels -f Dockerfile.build ./
+      - run: docker images
       # - run:
       #     name: A
       #     command: |
