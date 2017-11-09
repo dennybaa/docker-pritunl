@@ -19,7 +19,7 @@ jobs:
       - run: docker ps -a
       - run: docker images
       - run: |
-          doker build --tag generate-wheels -f Dockerfile.build ./ &
+          docker build --tag generate-wheels -f Dockerfile.build ./ &
           sleep 2
           ps
           wait $!
