@@ -17,7 +17,12 @@ jobs:
       - run: docker ps -a
       - run: docker run alpine echo hello
       - run: docker ps -a
-      - run: docker info
+      - run: docker build generate-wheels -f Dockerfile.build ./
+      # - run:
+      #     name: A
+      #     command: |
+      #       docker create -v /data --name vol alpine:3.6 /bin/true
+      #       docker cp 
       # - run: docker build -t build-container -f Dockerfile.build ./
 
       # - run: |
