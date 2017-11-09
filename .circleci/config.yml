@@ -15,12 +15,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: docker ps -a
-      - run: docker run alpine echo hello
+      - run: docker run alpine mount
       - run: docker ps -a
       - run: docker images
       - run: docker build --tag generate-wheels -f Dockerfile.build ./
       - run: docker images
-      - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
+      # - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
       # - run:
       #     name: A
       #     command: |
