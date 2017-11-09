@@ -18,17 +18,10 @@ jobs:
       - run: docker run alpine mount
       - run: docker ps -a
       - run: docker images
-      - run: |
-          docker build --tag generate-wheels -f Dockerfile.build ./ &
-          sleep 2
-          ps
-          wait $!
+      - run: cat /proc/uptime
+      - run: docker run -it alpine cat /proc/uptime
 
-      - run: |
-          docker images &
-          sleep 0.1
-          ps
-
+      # docker build --tag generate-wheels -f Dockerfile.build ./ 
       # - run: docker run -v $(pwd)/README.md:/txt alpine cat /txt
       # - run:
       #     name: A
