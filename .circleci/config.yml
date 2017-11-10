@@ -35,7 +35,7 @@ jobs:
 
       - run:
           name: asdasd
-          command:
+          command: |
             docker run --name gobuilder -d circleci/golang:1.8 sleep infinity
             docker exec -t gobuilder go get github.com/pritunl/pritunl-dns
             docker exec -t gobuilder go get github.com/pritunl/pritunl-web
