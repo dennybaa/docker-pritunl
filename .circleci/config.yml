@@ -33,19 +33,12 @@ jobs:
             docker run -t --volumes-from data -w /pritunl build-wheels
             docker cp data:/wheels ./
 
+      - run:
+          name: asdasd
+          command:
+            docker run --name gobuilder -d circleci/golang:1.8 sleep infinity
+            docker exec -t gobuilder go get github.com/pritunl/pritunl-dns
+            docker exec -t gobuilder go get github.com/pritunl/pritunl-web
+            docker exec -t gobuilder find / pritunl-dns
 
-      # - run:
-      #     name: Build resulting container
-      #     command: |
-      #       docker run -t
-      # - run: docker build -t build-container -f Dockerfile.build ./
-
-      # - run: |
-      #     docker run -it -v $(pwd)/pritunl:/pritunl \
-      #                    -v $(pwd)/wheels:/wheels \
-      #                    -w /pritunl build-container
-
-      # - run: go get github.com/pritunl/pritunl-dns
-      # - run: go get github.com/pritunl/pritunl-web
-      # - run: pwd
-      # - run: find /home
+            # docker build -t ${CONTAINER}:alpine -f Dockerfile.alpine .

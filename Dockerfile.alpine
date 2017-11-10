@@ -8,7 +8,7 @@ RUN apk add --no-cache python && \
     pip install setuptools && \
     rm -r /root/.cache
 
-RUN apk --no-cache --update add libffi openssl ca-certificates net-tools openvpn bridge-utils
+RUN apk --no-cache add libffi openssl ca-certificates net-tools openvpn bridge-utils
 
 # Add python wheels generated during CI build
 ADD wheels /wheels
