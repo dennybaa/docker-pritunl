@@ -30,7 +30,7 @@ jobs:
           command: |
             docker create --name data -v /wheels -v /pritunl alpine:3.6 /bin/true
             docker cp pritunl data:/
-            docker run -t --volumes-from data -w pritunl build-wheels
+            docker run -t --volumes-from data -w /pritunl build-wheels
             docker cp data:/wheels ./
 
 
