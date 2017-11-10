@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Build pritunl wheels and copy back here (primary machine)
           command: |
-            docker create --name data -v /wheels -v /pritunl -v /go/bin alpine:3.6 /bin/true
+            docker create --name data -v /wheels -v /pritunl alpine:3.6 /bin/true
             docker cp pritunl data:/
             docker run -t --volumes-from data -w /pritunl build-wheels
             docker cp data:/wheels ./
@@ -41,7 +41,7 @@ jobs:
                         circleci/golang:1.8 sleep infinity
             docker exec -t gobuilder go get github.com/pritunl/pritunl-dns
             docker exec -t gobuilder go get github.com/pritunl/pritunl-web
-            docker cp data:/go/bin/pritunl-* .
+            docker cp gobuilder:/go/bin/pritunl-* .
             ls -l
 
       # - run:
